@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Calculator + Age Calculator</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: linear-gradient(to right, #cceeff, #e6f7ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+```
+.container {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  width: 300px;
+}
+
+h2 {
+  text-align: center;
+  color: #0077b6;
+}
+
+input, button {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+#display {
+  text-align: right;
+  background: #f0fbff;
+}
+
+.btns button {
+  width: 22%;
+  margin: 1%;
+  background: #90e0ef;
+  border: none;
+  cursor: pointer;
+}
+
+.btns button:hover {
+  background: #48cae4;
+}
+
+.equal {
+  background: #00b4d8;
+  color: white;
+}
+
+.age-section {
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 2px solid #ddd;
+}
+
+.result {
+  text-align: center;
+  color: #023e8a;
+  font-weight: bold;
+}
+```
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Calculator</h2>
+    <input type="text" id="display" disabled>
+
+```
+<div class="btns">
+  <button onclick="append('7')">7</button>
+  <button onclick="append('8')">8</button>
+  <button onclick="append('9')">9</button>
+  <button onclick="append('/')">/</button>
+
+  <button onclick="append('4')">4</button>
+  <button onclick="append('5')">5</button>
+  <button onclick="append('6')">6</button>
+  <button onclick="append('*')">*</button>
+
+  <button onclick="append('1')">1</button>
+  <button onclick="append('2')">2</button>
+  <button onclick="append('3')">3</button>
+  <button onclick="append('-')">-</button>
+
+  <button onclick="append('0')">0</button>
+  <button onclick="clearDisplay()">C</button>
+  <button onclick="calculate()" class="equal">=</button>
+  <button onclick="append('+')">+</button>
+</div>
+
+<div class="age-section">
+  <h2>Age Calculator</h2>
+  <input type="date" id="dob">
+  <button onclick="calculateAge()">Calculate Age</button>
+  <div class="result" id="ageResult"></div>
+</div>
+```
+
+  </div>
+
+<script>
+function append(val) {
+  document.getElementById("display").value += val;
+}
+
+function clearDisplay() {
+  document.getElementById("display").value = "";
+}
+
+function calculate() {
+  try {
+    document.getElementById("display").value =
+      eval(document.getElementById("display").value);
+  } catch {
+    alert("Invalid Input");
+  }
+}
+
+function calculateAge() {
+  let dob = document.getElementById("dob").value;
+  if (!dob) {
+    alert("Please select DOB");
+    return;
+  }
+
+  let birthDate = new Date(dob);
+  let today = new Date();
+
+  let age = today.getFullYear() - birthDate.getFullYear();
+  let month = today.getMonth() - birthDate.getMonth();
+
+  if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+
+  document.getElementById("ageResult").innerText =
+    "Your Age is: " + age + " years";
+}
+</script>
+
+</body>
+</html>
